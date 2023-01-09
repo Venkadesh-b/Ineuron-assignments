@@ -23,5 +23,4 @@ A) When we open a new workbook we can see Tabs under which we have Ribbons which
 
 Q6) When to use a relative cell reference in excel?
 
-A) A relative reference is used when we want a certain reference of a cell to be fixed and it is done by adding $ to the refernce.
-for example-> we want to calculate total percent of marks obtained by a student. in which we have to refer to the total marks obtained for all the marks hence the cell of the total marks obtained is set as the relative cell reference. 
+A) Relative references in Excel are cell references that change when the formula is copied to any other cell or any other worksheet. By adding $ to the refernce the reference can be fixed to a single reference.
