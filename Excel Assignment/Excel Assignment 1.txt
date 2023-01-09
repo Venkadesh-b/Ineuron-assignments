@@ -1,6 +1,6 @@
 Q1)What do you mean by cells in an excel sheet?
 
-A)Cells are individual blocks in a sheet corresponding to a row and a column where dats is entered.
+A)Cells are individual blocks in a sheet corresponding to a row and a column where data is entered.
 for example -> cell A1 refers to Column A and 1st row.
 
 Q2)How can you restrict someone from copying a cell from your worksheet?
