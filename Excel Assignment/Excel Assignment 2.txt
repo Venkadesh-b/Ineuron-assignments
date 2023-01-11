@@ -1,0 +1,34 @@
+1. What does the dollar($) sign do?
+
+A. The dollar sign is used to make the refernce cell variable fixed, Where we need absolute reference not relative reference.
+
+2. How to Change the Reference from Relative to Absolute (or Mixed)?
+
+A. To use Absolute reference we need to use $ symbol in the reference variable. 
+for example - $A$1 
+Relative references are normal reference which requires the reference variable alone
+for example - A1
+Mixed reference is used when either column or the row is fixed.
+for example - $A1 where column A is fixed and A$1 where row 1 is fixed.
+
+3. Explain the order of operations in excel?
+
+A. The excel follows the traditional math order of operation which is commonly known as BODMAS-> Brackets->Orders->Divisions->Multiplications->Addition->Subtraction.
+
+4. What, according to you, are the top 5 functions in excel and write a basic syntax
+for any of two?
+
+There are many funtions in excel which are very helpful in data processing.
+some of them are -> 1)Sum 2)Count 3)Average 4)Vlookup 5)IF
+1)Sum-> =SUM(number1,[number2]....)
+2)IF-> =IF(logical statement,true,false)
+
+5. When would you use the subtotal function?
+
+A. The subtotal function in excel allows user to create groups and perform various other excel functions such as SUM,AVG,COUNT etc.
+=SUBTOTAL(method, range1, [range2->range_n])
+
+6. What is the syntax of the vlookup function? Explain the terms in it?
+
+A. Vlookup function is used to lookup the value with a reference cell and fetch the value from the selected lookup table.
+=VLOOKUP (search_value,lookup_table,column_number,[approximate_match])
