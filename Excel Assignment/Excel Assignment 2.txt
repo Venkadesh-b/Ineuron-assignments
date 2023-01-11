@@ -32,3 +32,6 @@ A. The subtotal function in excel allows user to create groups and perform vario
 
 A. Vlookup function is used to lookup the value with a reference cell and fetch the value from the selected lookup table.
 =VLOOKUP (search_value,lookup_table,column_number,[approximate_match])
+search value-> the value we are looking for
+lookup table-> table to be searched
+column number-> column to be returned
