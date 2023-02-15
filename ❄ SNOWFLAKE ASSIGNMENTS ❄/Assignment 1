@@ -1,0 +1,126 @@
+
+-- 1. Load the given dataset into snowflake with a primary key to Order Date column.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE DATABASE ASSIGNMENT_1;
+
+CREATE OR REPLACE TABLE SALES_DATA_VB(
+ORDER_ID VARCHAR(50),
+ORDER_dATE VARCHAR(50),
+SHIP_DATE VARCHAR(50),
+SHIP_MODE VARCHAR(50),
+CUSTOMER_NAME VARCHAR(50),
+SEGMENT VARCHAR(50),
+STATE VARCHAR(50),
+COUNTRY VARCHAR(50),
+MARKET VARCHAR(50),
+REGION VARCHAR(50),
+PRODUCT_ID VARCHAR(50),
+CATEGORY VARCHAR(50),
+SUB_CATEGORY VARCHAR(500),
+PRODUCT_NAME VARCHAR(500),
+SALES VARCHAR(500),
+QUANTITY VARCHAR(50),
+DISCOUNT VARCHAR(50),
+PROFIT VARCHAR(50),
+SHIPPING_COST VARCHAR(50),
+ORDER_PRIORITY VARCHAR(50),
+YEAR VARCHAR(50),
+PRIMARY KEY(ORDER_DATE));
+
+
+
+DESCRIBE TABLE SALES_DATA_VB;
+
+SELECT * FROM SALES_dATA_VB;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- 2. Change the Primary key to Order Id Column.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ALTER TABLE "ASSIGNMENT_1"."PUBLIC"."SALES_DATA_VB" DROP PRIMARY KEY;
+ALTER TABLE "ASSIGNMENT_1"."PUBLIC"."SALES_DATA_VB" ADD CONSTRAINT CONSTRAINT_NAME PRIMARY KEY (ORDER_ID);
+
+DESCRIBE TABLE SALES_DATA_VB;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- 3. Check the data type for Order date and Ship date and mention in what data type it should be?
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE VIEW DATE_DETAILS AS 
+SELECT ORDER_DATE,SHIP_DATE FROM SALES_DATA_VB;
+
+DESCRIBE VIEW DATE_DETAILS;
+
+-- ANSWER - BOTH ARE VARCHAR TYPE BUT IT SHOULD BE DATE TYPE. WE CAN USE TO_DATE() FUNCTION TO CONVERT IT TO DATE TYPE.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--4. Create a new column called order_extract and extract the number after the last ‘–‘from Order ID column.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ALTER TABLE SALES_DATA_VB ADD COLUMN ORDER_EXTRACT VARCHAR(50);
+
+UPDATE SALES_DATA_VB SET ORDER_EXTRACT = SUBSTRING(ORDER_ID,9);
+
+SELECT ORDER_EXTRACT FROM SALES_DATA_VB;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- 5. Create a new column called Discount Flag and categorize it based on discount.Use ‘Yes’ if the discount is greater than zero else ‘No’.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ALTER TABLE SALES_DATA_VB ADD COLUMN DISCOUNT_FLAG VARCHAR(5);
+
+UPDATE SALES_DATA_VB set discount_flag = 
+case
+when (discount = 0) then 'Yes'
+else 'No'
+end;
+
+select discount,discount_flag from sales_data_vb;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- 6. Create a new column called process days and calculate how many days it takes for each order id to process from the order to its shipment.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ALTER TABLE SALES_DATA_VB ADD COLUMN PROCESS_DAYS VARCHAR(15);
+
+UPDATE SALES_DATA_VB SET ORDER_DATE = REPLACE(ORDER_DATE,'/','-');
+
+UPDATE SALES_DATA_VB SET SHIP_DATE = REPLACE(SHIP_DATE,'/','-');
+
+create view dates as
+select to_date(order_date) as order_date , to_date(ship_date) as ship_date from sales_Data_vb;
+
+update sales_data_vb set process_days = 
+datediff('Day',dates.order_date,dates.ship_date) from dates;
+
+---------------------------- OR ----------------------------
+
+UPDATE SALES_dATA_VB SET PROCESS_DAYS =
+DATEDIFF('DAY',to_date(order_date) , to_date(ship_date) );
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/*
+7. Create a new column called Rating and then based on the Process dates give
+    rating like given below.
+    a. If process days less than or equal to 3days then rating should be 5
+    b. If process days are greater than 3 and less than or equal to 6 then rating
+    should be 4
+    c. If process days are greater than 6 and less than or equal to 10 then rating
+    should be 3
+    d. If process days are greater than 10 then the rating should be 2.
+*/
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ ALTER TABLE SALES_DATA_VB ADD COLUMN RATING VARCHAR(10);
+ 
+ UPDATE SALES_dATA_VB SET RATING = 
+ CASE 
+ WHEN (PROCESS_DAYS <= 3) THEN 5
+ WHEN (PROCESS_DAYS >  3) AND (PROCESS_DAYS <= 6) THEN 4
+ WHEN (PROCESS_DAYS >  3) AND (PROCESS_DAYS <= 10) THEN 3
+ ELSE 2
+ END;
+ 
+ SELECT PROCESS_DAYS,RATING FROM SALES_DATA_VB;
+
