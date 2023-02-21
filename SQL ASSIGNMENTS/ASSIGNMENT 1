@@ -1,0 +1,29 @@
+create database SQL_ASSIGNMENTS;
+
+-----------------------------------------------------------------------------------------------------
+-----TASK 3: Output display is just one column balance-------
+-----------------------------------------------------------------------------------------------------
+
+CREATE TABLE transactions (
+Amount INTEGER NOT NULL,
+Date DATE NOT NULL );
+
+INSERT INTO transactions (Amount, Date) VALUES (1000, '2020-01-06');
+INSERT INTO transactions (Amount, Date) VALUES (-10, '2020-01-14');
+INSERT INTO transactions (Amount, Date) VALUES (-75, '2020-01-20');
+INSERT INTO transactions (Amount, Date) VALUES (-5,'2020-01-25');
+INSERT INTO transactions (Amount, Date) VALUES (-4, '2020-01-29');
+INSERT INTO transactions (Amount, Date) VALUES (2000, '2020-03-10');
+INSERT INTO transactions (Amount, Date) VALUES (-75, '2020-03-12');
+INSERT INTO transactions (Amount, Date) VALUES (-20, '2020-03-15');
+INSERT INTO transactions (Amount, Date) VALUES (40, '2020-03-15');
+INSERT INTO transactions (Amount, Date) VALUES (-50, '2020-03-17');
+INSERT INTO transactions (Amount, Date) VALUES (200, '2020-10-10');
+INSERT INTO transactions (Amount, Date) VALUES (-200, '2020-10-10');
+
+WITH EXCEPTION AS 
+(SELECT SUM(AMOUNT)AS MAMOUNT,MONTH(DATE) AS MONTH FROM TRANSACTIONS WHERE AMOUNT<0
+GROUP BY MONTH)
+
+SELECT SUM(AMOUNT) - (5 * (12 - (SELECT COUNT(*) FROM EXCEPTION WHERE ABS(MAMOUNT)>100)))
+               AS BALANCE FROM TRANSACTIONS;
